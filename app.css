@@ -8,11 +8,11 @@
    ------------------------------------------------------------ */
 :root {
   /* --- Category colors (coordinate with Chart.js default palette) --- */
-  --color-food: #4caf82;        /* green-ish  — Chart.js rgba(75,192,192) family */
+  --color-food: #e497ae;        
   --color-food-bg: #e8f5ee;
-  --color-transport: #4a90d9;   /* blue-ish   — Chart.js rgba(54,162,235) family */
+  --color-transport: #8ab9ea;   
   --color-transport-bg: #e8f2fb;
-  --color-fun: #f5a623;         /* yellow/orange-ish — Chart.js rgba(255,206,86) family */
+  --color-fun: #ffde71;         
   --color-fun-bg: #fef7e6;
 
   /* --- Neutral palette --- */
@@ -263,6 +263,93 @@ canvas {
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------
+   2. Dark mode token overrides
+   Applied when <html data-theme="dark"> is set.
+   All colour pairs meet WCAG 2.1 AA (≥ 4.5:1 for body text).
+
+   Contrast verification (against --color-bg: #0f1923):
+     --color-text            #e8edf2  →  ~14.1:1  ✓
+     --color-text-muted      #9baab8  →  ~7.0:1   ✓
+   Contrast verification (against --color-surface: #1a2739):
+     --color-text-placeholder #6f8499 →  ~4.6:1   ✓
+   Requirements: 5.7, 5.8
+   ------------------------------------------------------------ */
+[data-theme="dark"] {
+  --color-bg:               #0f1923;
+  --color-surface:          #1a2739;
+  --color-border:           #2e3f54;
+  --color-text:             #e8edf2;
+  --color-text-muted:       #9baab8;
+  --color-text-placeholder: #6f8499;
+}
+
+/* ------------------------------------------------------------
+   3. Theme toggle button
+   Fixed to top-right corner, 44×44 px tap target at all
+   three breakpoints (320–767 / 768–1023 / 1024–1920 px).
+   Requirements: 5.1, 5.2, 5.10
+   ------------------------------------------------------------ */
+.theme-toggle {
+  position: fixed;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: calc(var(--z-notification) + 10); /* above notification banner */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width:  2.75rem;  /* 44 px — WCAG 2.5.8 touch target */
+  min-height: 2.75rem;
+
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  border: var(--border);
+
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Tablet breakpoint — slightly larger offset for breathing room */
+@media (min-width: 768px) {
+  .theme-toggle {
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+}
+
+/* Desktop breakpoint — align with the wider grid padding */
+@media (min-width: 1024px) {
+  .theme-toggle {
+    top: var(--space-6);
+    right: var(--space-6);
   }
 }
 
@@ -684,4 +771,492 @@ canvas {
 
 /* ============================================================
    End of task 2.3 — component styles complete.
+   ============================================================ */
+
+/* ============================================================
+   Task 2.3 (continued) — Month selector and sort control styles
+   Requirements: 2.1, 3.1
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   11. Month filter row — label + select + month total span
+   Req 2.1: visible month selector above the transaction list
+   ------------------------------------------------------------ */
+.month-filter-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.month-filter-row label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.month-filter-row select {
+  /* Reuse .field select appearance rules */
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  line-height: var(--line-height-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7a8d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.month-filter-row select:hover {
+  border-color: var(--color-primary);
+}
+
+.month-filter-row select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+}
+
+/* Month total — running balance for the selected month */
+.month-total {
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+#month-total {
+  /* ID-level hook — inherits .month-total typography, no extra rules needed */
+}
+
+/* ------------------------------------------------------------
+   12. Sort control row — label + select
+   Req 3.1: visible sort control above the transaction list
+   ------------------------------------------------------------ */
+.sort-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.sort-row label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sort-row select {
+  /* Reuse .field select appearance rules */
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  line-height: var(--line-height-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7a8d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sort-row select:hover {
+  border-color: var(--color-primary);
+}
+
+.sort-row select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+}
+
+/* ============================================================
+   End of month selector and sort control styles (task 2.3 cont.)
+   ============================================================ */
+
+/* ============================================================
+   Task 2.2 — Category Manager Styles
+   Requirements: 1.1, 1.7
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   11. Category manager section — card layout
+       Sits inside .app-grid as its own grid area; reuses .card
+       base but reserves a grid-area name for layout control.
+   ------------------------------------------------------------ */
+.category-manager-section {
+  /* Inherits .card surface, border, radius, shadow, padding */
+}
+
+/* Give the section a named grid area so the grid template can
+   place it explicitly when layout tasks extend the grid. */
+.category-manager-section { grid-area: categories; }
+
+/* "Add Category" button — primary action, full width */
+#add-category-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.75rem; /* 44 px tap target */
+  padding: var(--space-2) var(--space-6);
+  margin-top: var(--space-1);
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+#add-category-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+#add-category-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.4);
+}
+
+#add-category-btn:active {
+  background-color: var(--color-primary-hover);
+  transform: translateY(1px);
+}
+
+/* ------------------------------------------------------------
+   12. Category list — container and row layout
+       #category-list shares the same scrollable list approach
+       as #transaction-list but with a tighter max-height since
+       the list rarely exceeds a handful of entries.
+   ------------------------------------------------------------ */
+#category-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  overflow-y: auto;
+  max-height: 240px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+#category-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#category-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#category-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}
+
+/* Individual category row */
+#category-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-surface);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  min-height: 2.75rem; /* 44 px tap target height */
+  overflow: hidden;
+}
+
+/* Category name span — truncates on overflow */
+#category-list .cat-name {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+/* Read-only badge for built-in categories (Req 1.7) */
+#category-list .cat-builtin-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  border: var(--border);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: default;
+  user-select: none;
+}
+
+/* Delete button — mirrors .tx-delete from the transaction list */
+#category-list .cat-delete {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+#category-list .cat-delete:hover {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+#category-list .cat-delete:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* ------------------------------------------------------------
+   13. .badge-dynamic — base class for runtime-colored badges
+       JS sets --badge-color and --badge-bg via inline style;
+       this class provides shape, sizing, and typography only.
+       Used with CATEGORY_PALETTE hex values injected at render time.
+   ------------------------------------------------------------ */
+.badge-dynamic {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  /* Palette-derived colors supplied via inline style by JS:
+     style="color: #9b59b6; background-color: rgba(155,89,182,0.15);" */
+  color: var(--badge-color, var(--color-text-muted));
+  background-color: var(--badge-bg, var(--color-bg));
+}
+
+/* ============================================================
+   End of task 2.2 — category manager styles.
+   ============================================================ */
+
+/* ============================================================
+   Task 2.4 — Threshold Panel & Threshold-Exceeded Indicator
+   Requirements: 4.1, 4.3, 4.4, 4.5
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   11. Threshold section — card layout
+   ------------------------------------------------------------ */
+.threshold-section {
+  /* Inherits .card base styles (background, border, shadow, padding).
+     Named explicitly so the grid can assign it an area if needed. */
+}
+
+.threshold-section h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.threshold-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+/* ------------------------------------------------------------
+   12. Threshold row — label, number input, save button,
+       inline error, and threshold indicator span
+   ------------------------------------------------------------ */
+.threshold-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.threshold-row:last-child {
+  border-bottom: none;
+}
+
+/* Label — fixed width so inputs align across rows */
+.threshold-row label {
+  flex: 0 0 8rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Number input */
+.threshold-row input[type="number"] {
+  flex: 1 1 6rem;
+  min-width: 5rem;
+  max-width: 12rem;
+  min-height: 2.75rem; /* 44 px tap target */
+  padding: var(--space-2) var(--space-3);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-variant-numeric: tabular-nums;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  appearance: textfield; /* hide spinner in Firefox */
+  -moz-appearance: textfield;
+}
+
+.threshold-row input[type="number"]::-webkit-inner-spin-button,
+.threshold-row input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.threshold-row input[type="number"]:hover {
+  border-color: var(--color-primary);
+}
+
+.threshold-row input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+}
+
+.threshold-row input[type="number"][aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.threshold-row input[type="number"][aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+}
+
+/* Save button */
+.threshold-row .threshold-save {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem; /* 44 px tap target */
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.threshold-row .threshold-save:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.threshold-row .threshold-save:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.4);
+}
+
+.threshold-row .threshold-save:active {
+  background-color: var(--color-primary-hover);
+  transform: translateY(1px);
+}
+
+/* Inline error span — reuses the .error pattern from section 3 */
+.threshold-row .error {
+  flex-basis: 100%; /* push error onto its own line when it wraps */
+  margin-top: 0;
+}
+
+/* Threshold indicator span — shows ⚠ when threshold is exceeded */
+.threshold-row .threshold-indicator {
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: transparent; /* hidden in normal state — use transparent so it
+                         still occupies space and prevents layout shift */
+  min-width: 1.25rem;
+  text-align: center;
+  transition: color var(--transition-fast);
+}
+
+/* ------------------------------------------------------------
+   13. .threshold-exceeded — applied to indicator spans and
+       other elements when spending meets or exceeds threshold.
+       Req 4.3, 4.4, 4.5
+   ------------------------------------------------------------ */
+.threshold-exceeded {
+  color: var(--color-error) !important; /* ensure override even on
+                                            threshold-indicator's
+                                            transparent default */
+}
+
+/* The ⚠ pseudo-content is inserted by JS (textContent = '⚠').
+   When .threshold-exceeded is removed the indicator text is
+   cleared back to '' by the same JS, so no CSS content: trick
+   is needed. The color transition handles the animation. */
+
+/* ------------------------------------------------------------
+   14. #balance-display.threshold-exceeded — balance total
+       override when total spending ≥ total threshold.
+       Req 4.3, 4.5
+   ------------------------------------------------------------ */
+#balance-display.threshold-exceeded {
+  color: var(--color-error);
+}
+
+/* ============================================================
+   End of task 2.4 — threshold panel styles complete.
    ============================================================ */

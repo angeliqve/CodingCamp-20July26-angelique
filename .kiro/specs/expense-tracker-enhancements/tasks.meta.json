@@ -1,0 +1,315 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Add HTML structural elements for all five new features": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946135312
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946147093
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946218572
+      }
+    ],
+    "2.1 Add dark mode tokens and theme toggle styles": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946135585
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946224225
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946356085
+      }
+    ],
+    "2.2 Add category manager styles": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946135740
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946229885
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946361255
+      }
+    ],
+    "2.3 Add month selector and sort control styles": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946135888
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946234094
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946366333
+      }
+    ],
+    "2.4 Add threshold panel and threshold-exceeded indicator styles": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136048
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946240374
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946371430
+      }
+    ],
+    "3.1 Add category storage functions": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136168
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946245252
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946377323
+      }
+    ],
+    "3.2 Add threshold storage functions": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136282
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946383025
+      }
+    ],
+    "3.3 Add theme storage functions": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136399
+      },
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946388254
+      }
+    ],
+    "4.1 Add validateCategory function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136523
+      },
+      {
+        "executionId": "271d032e-f875-4b4d-8b36-2ee7dd066a91",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946663775
+      }
+    ],
+    "4.3 Add validateThreshold function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136649
+      },
+      {
+        "executionId": "271d032e-f875-4b4d-8b36-2ee7dd066a91",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946668216
+      }
+    ],
+    "4.5 Update validateForm to accept dynamic category list": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136798
+      },
+      {
+        "executionId": "271d032e-f875-4b4d-8b36-2ee7dd066a91",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946669062
+      }
+    ],
+    "5.1 Add category state and operations": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946136933
+      },
+      {
+        "executionId": "271d032e-f875-4b4d-8b36-2ee7dd066a91",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946669909
+      }
+    ],
+    "5.2 Add threshold state and operations": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137047
+      },
+      {
+        "executionId": "271d032e-f875-4b4d-8b36-2ee7dd066a91",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946670756
+      }
+    ],
+    "5.3 Add ephemeral sort and month-filter state": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137171
+      },
+      {
+        "executionId": "271d032e-f875-4b4d-8b36-2ee7dd066a91",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946671542
+      }
+    ],
+    "5.9 Update balance() and totals() to accept optional transaction array": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137295
+      }
+    ],
+    "6.1 Add applyTheme function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137406
+      }
+    ],
+    "6.3 Add renderCategoryManager function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137524
+      }
+    ],
+    "6.9 Add renderMonthSelector function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137649
+      }
+    ],
+    "6.11 Add renderSortControl function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137781
+      }
+    ],
+    "6.12 Add renderThresholdPanel function": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946137899
+      }
+    ],
+    "6.13 Update renderBalanceDisplay to show threshold-exceeded indicator": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138031
+      }
+    ],
+    "6.14 Update renderChart for dynamic category colors and threshold indicators": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138167
+      }
+    ],
+    "7.1 Wire category manager events": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138324
+      }
+    ],
+    "7.2 Wire month selector and sort control events": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138438
+      }
+    ],
+    "7.3 Wire threshold panel events": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138567
+      }
+    ],
+    "7.4 Wire theme toggle event": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138683
+      }
+    ],
+    "7.7 Update renderAll pipeline": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138800
+      }
+    ],
+    "7.8 Update initApp to load theme eagerly before first render": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946138923
+      }
+    ],
+    "8. Integration checkpoint — verify all five features work end-to-end": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946139037
+      }
+    ],
+    "2. Add CSS rules for dark mode and all new UI components": [
+      {
+        "executionId": "302da6e2-611b-4a2c-9e61-c28cdca1c690",
+        "chatSessionId": "sess_5895297b-ba26-410e-abd5-25e1a4e65f68",
+        "timestamp": 1784946371615
+      }
+    ]
+  }
+}

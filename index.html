@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="app.css" />
   </head>
   <body>
+    <button id="theme-toggle" type="button"
+            aria-pressed="false"
+            aria-label="Switch to dark mode"
+            class="theme-toggle">
+      <span aria-hidden="true" class="theme-icon">🌙</span>
+    </button>
     <div id="notification-banner" role="alert" aria-live="polite" hidden></div>
 
     <main class="app-grid">
@@ -37,6 +43,18 @@
         </form>
       </section>
 
+      <section id="category-manager" class="card category-manager-section">
+        <h2>Manage Categories</h2>
+        <div class="field">
+          <label for="new-category-name">New Category Name</label>
+          <input id="new-category-name" type="text" maxlength="30"
+                 placeholder="e.g. Groceries" />
+          <span class="error" id="err-category-name" aria-live="polite"></span>
+        </div>
+        <button type="button" id="add-category-btn">Add Category</button>
+        <ul id="category-list" aria-label="Custom categories"></ul>
+      </section>
+
       <section class="card balance-section">
         <h2>Total Spending</h2>
         <p id="balance-display">$0.00</p>
@@ -52,7 +70,32 @@
 
       <section class="card list-section">
         <h2>Transactions</h2>
+        <div class="month-filter-row">
+          <label for="month-selector">Filter by Month</label>
+          <select id="month-selector">
+            <option value="all">All</option>
+          </select>
+          <span id="month-total" class="month-total"></span>
+        </div>
+        <div class="sort-row">
+          <label for="sort-control">Sort by</label>
+          <select id="sort-control">
+            <option value="date-desc">Date (newest first)</option>
+            <option value="date-asc">Date (oldest first)</option>
+            <option value="amount-desc">Amount (high to low)</option>
+            <option value="amount-asc">Amount (low to high)</option>
+            <option value="category-asc">Category (A–Z)</option>
+            <option value="category-desc">Category (Z–A)</option>
+          </select>
+        </div>
         <ul id="transaction-list" aria-label="Transaction history"></ul>
+      </section>
+
+      <section id="threshold-panel" class="card threshold-section">
+        <h2>Budget Thresholds</h2>
+        <p class="threshold-hint">Set a limit of 0 to disable.</p>
+        <div id="threshold-list">
+        </div>
       </section>
     </main>
 

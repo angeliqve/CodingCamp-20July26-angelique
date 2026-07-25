@@ -2,6 +2,23 @@
   'use strict';
 
   const STORAGE_KEY = 'expense_visualizer_v1';
+  const CATEGORIES_KEY = 'expense_categories_v1';
+  const THRESHOLDS_KEY = 'expense_thresholds_v1';
+  const THEME_KEY = 'expense_theme_v1';
+
+  /** The three built-in category names shipped with the app. */
+  const BUILTIN_CATEGORIES = ['Food', 'Transport', 'Fun'];
+
+  const CATEGORY_PALETTE = [
+    '#9b59b6', // purple
+    '#e74c3c', // red
+    '#1abc9c', // teal
+    '#e67e22', // orange
+    '#3498db', // light blue
+    '#e91e63', // pink
+    '#00bcd4', // cyan
+    '#8bc34a', // lime
+  ];
 
   // --- storage module ---
   const storage = (function () {
@@ -48,11 +65,77 @@
       }
     }
 
+    /**
+     * Reads CATEGORIES_KEY from localStorage and JSON-parses it.
+     * @returns {Array} Parsed categories array, or [] on any failure.
+     */
+    function loadCategories() {
+      try {
+        const raw = localStorage.getItem(CATEGORIES_KEY);
+        if (raw === null) {
+          return [];
+        }
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    /**
+     * JSON.stringifies the categories array and writes it to CATEGORIES_KEY.
+     * @param {Array} categories - The categories array to persist.
+     * @returns {boolean} true on success, false if setItem throws.
+     */
+    function saveCategories(categories) {
+      try {
+        localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categories));
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    /**
+     * Reads THRESHOLDS_KEY from localStorage and JSON-parses it.
+     * @returns {Object} Parsed thresholds object, or {} on any failure.
+     */
+    function loadThresholds() {
+      try {
+        const raw = localStorage.getItem(THRESHOLDS_KEY);
+        if (raw === null) {
+          return {};
+        }
+        const parsed = JSON.parse(raw);
+        return (parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    /**
+     * JSON.stringifies the thresholds object and writes it to THRESHOLDS_KEY.
+     * @param {Object} thresholds - The thresholds object to persist.
+     * @returns {boolean} true on success, false if setItem throws.
+     */
+    function saveThresholds(thresholds) {
+      try {
+        localStorage.setItem(THRESHOLDS_KEY, JSON.stringify(thresholds));
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
     return {
       /** Whether localStorage is available in this browser environment. */
       available: _available,
       load,
       save,
+      loadCategories,
+      saveCategories,
+      loadThresholds,
+      saveThresholds,
     };
   })();
 
@@ -97,12 +180,114 @@
       return { valid, errors };
     }
 
-    return { validateForm };
+    /**
+     * Validates a proposed budget threshold value.
+     * Accepts 0 (disabled) or any positive finite number up to 999,999,999.99.
+     * Treats empty string as 0 (per Req 4.11).
+     * @param {string|number} value - The raw threshold input value.
+     * @returns {{ valid: boolean, error: string|null }}
+     */
+    function validateThreshold(value) {
+      // Treat empty string as 0 (clear threshold — Req 4.11)
+      if (value === '' || value === null || value === undefined) {
+        return { valid: true, error: null };
+      }
+
+      const parsed = Number(value);
+
+      // Reject non-numeric
+      if (isNaN(parsed) || !isFinite(parsed)) {
+        return { valid: false, error: 'Threshold must be a valid number.' };
+      }
+
+      // Reject negative values (Req 4.8)
+      if (parsed < 0) {
+        return { valid: false, error: 'Threshold must be 0 or a positive number.' };
+      }
+
+      // Reject values exceeding max (Req 4.1)
+      if (parsed > 999999999.99) {
+        return { valid: false, error: 'Threshold must not exceed $999,999,999.99.' };
+      }
+
+      return { valid: true, error: null };
+    }
+
+    /**
+     * Validates a proposed custom category name.
+     * @param {string} name               - The proposed category name input.
+     * @param {Array}  existingCategories - Array of already-existing category name strings
+     *                                      (both built-ins and custom) to check for duplicates.
+     * @returns {{ valid: boolean, error: string|null }}
+     */
+    function validateCategory(name, existingCategories) {
+      // Reject anything that is not a string or is empty / whitespace-only (Req 1.3)
+      const trimmed = typeof name === 'string' ? name.trim() : '';
+      if (trimmed.length === 0) {
+        return { valid: false, error: 'Category name is required and must not be blank.' };
+      }
+
+      // Reject names longer than 30 characters (Req 1.3)
+      if (trimmed.length > 30) {
+        return { valid: false, error: 'Category name must be 30 characters or fewer.' };
+      }
+
+      // Reject case-insensitive duplicates (Req 1.4)
+      const lowerName = trimmed.toLowerCase();
+      const existing = Array.isArray(existingCategories) ? existingCategories : [];
+      const isDuplicate = existing.some(function (cat) {
+        return typeof cat === 'string' && cat.toLowerCase() === lowerName;
+      });
+      if (isDuplicate) {
+        return { valid: false, error: 'A category with that name already exists.' };
+      }
+
+      return { valid: true, error: null };
+    }
+
+    /**
+     * Validates a threshold input value.
+     * Accepts 0 (means "disabled") and any positive finite number up to 999,999,999.99.
+     * Rejects non-numeric values, negative values, and values exceeding 999,999,999.99.
+     * An empty string is treated as 0 (disabled) per Requirement 4.11.
+     * @param {string|number} value - Raw input value from a threshold input field.
+     * @returns {{ valid: boolean, error: string|null }}
+     */
+    function validateThreshold(value) {
+      // Treat empty string as 0 (disabled) — Req 4.11
+      if (value === '' || value === null || value === undefined) {
+        return { valid: true, error: null };
+      }
+
+      const parsed = Number(value);
+
+      // Reject non-numeric (NaN) and non-finite values
+      if (isNaN(parsed) || !isFinite(parsed)) {
+        return { valid: false, error: 'Threshold must be a valid number.' };
+      }
+
+      // Reject negative values — Req 4.8
+      if (parsed < 0) {
+        return { valid: false, error: 'Threshold must be 0 or a positive number.' };
+      }
+
+      // Reject values exceeding the maximum — Req 4.8
+      if (parsed > 999999999.99) {
+        return { valid: false, error: 'Threshold must not exceed $999,999,999.99.' };
+      }
+
+      return { valid: true, error: null };
+    }
+
+    return { validateForm, validateCategory, validateThreshold };
   })();
 
   // --- state module ---
   const state = (function () {
     let transactions = [];
+    // Custom categories array — each entry is { name: string, colorIndex: number }
+    // Built-in categories (Food, Transport, Fun) are NOT stored here; they live in BUILTIN_CATEGORIES.
+    let categories = [];
 
     /**
      * Loads transactions from storage on app init.
@@ -120,6 +305,53 @@
           ui.showBanner('Saved data could not be loaded');
         }
       }
+      renderAll();
+    }
+
+    /**
+     * Adds a new custom category after validating the name.
+     * Assigns a rotating colorIndex from CATEGORY_PALETTE (length % 8).
+     * Persists to storage; shows an error banner and returns false if save fails.
+     * @param {string} name - The proposed category name.
+     * @returns {boolean} true on success, false if validation failed or save failed.
+     */
+    function addCategory(name) {
+      // Build the full list of existing category names (built-ins + custom) for duplicate check
+      const allNames = BUILTIN_CATEGORIES.concat(categories.map(function (c) { return c.name; }));
+      const result = validator.validateCategory(name, allNames);
+      if (!result.valid) {
+        return false;
+      }
+
+      const newEntry = { name: name.trim(), colorIndex: categories.length % 8 };
+      categories = categories.concat([newEntry]);
+
+      const saved = storage.saveCategories(categories);
+      if (!saved) {
+        // Roll back
+        categories = categories.slice(0, categories.length - 1);
+        ui.showBanner('Category could not be saved');
+        return false;
+      }
+
+      return true;
+    }
+
+    /**
+     * Removes a custom category by name, removes its threshold entry (if any),
+     * persists both changes, and triggers a full re-render.
+     * Built-in categories are silently ignored.
+     * @param {string} name - The category name to delete.
+     */
+    function deleteCategory(name) {
+      // Only allow deletion of custom categories
+      if (BUILTIN_CATEGORIES.indexOf(name) !== -1) {
+        return;
+      }
+
+      categories = categories.filter(function (c) { return c.name !== name; });
+      storage.saveCategories(categories);
+
       renderAll();
     }
 
@@ -186,11 +418,15 @@
     return {
       // Getter ensures callers always see the latest array reference
       get transactions() { return transactions; },
+      // Getter for custom categories array
+      get categories() { return categories; },
       load,
       add,
       remove,
       balance,
       totals,
+      addCategory,
+      deleteCategory,
     };
   })();
 
